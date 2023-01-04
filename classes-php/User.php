@@ -42,5 +42,44 @@ public function register($login, $password, $email, $firstname, $lastname) {
         echo "fail";
     }
 }
+
+public function connect($login, $password) {
+    $this->login = $login;
+    $this->password = $password;
+
+    //Connexion au profil
+    $bdd2 = "SELECT * FROM utilisateurs WHERE login='$login'";
+    $result = $this->db -> query($bdd2);
+    $userInfos = $result -> fetch_assoc();
+    var_dump($userInfos);
+    if($login = $userInfos['login'] && $password = $userInfos['password']){
+        echo "connecté";
+        session_start();
+        $_SESSION['login'] = $login;
+        $_SESSION['id'] = $userInfos['id'];
+        if(isset($_SESSION['login'])){
+        echo "connecté en tant que " . $_SESSION['login'];
+        header('Location: profil.php');
+    }
 }
+}
+
+public function disconnect() {
+    session_start();
+    if(isset($_SESSION['login'])){
+        session_destroy();
+        header('Location: connexion.php');
+    }
+}
+}
+
+   
+
+    
+        /*  echo "fail";
+    } else {
+        echo "Connexion établie" , header('Location: profil.php');
+    }
+    }
+} */
 
