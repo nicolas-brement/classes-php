@@ -41,6 +41,7 @@ public function register($login, $password, $email, $firstname, $lastname) {
     if(!$this->db){
         echo "fail";
     }
+    header('location: connexion.php');
 }
 
 public function connect($login, $password) {
@@ -71,7 +72,41 @@ public function disconnect() {
         header('Location: connexion.php');
     }
 }
+
+public function delete() {
+   $login=$_SESSION['login'];
+   $req="DELETE FROM utilisateurs WHERE login='$login'";
+   $del_req=mysqli_query($this->db,$req);
+    session_unset();
+    header('location: inscription.php');
+
 }
+
+public function update($login, $password) {
+    $req1 = "SELECT * FROM utilisateurs WHERE login='$login'";
+    $del_req1=mysqli_query($this->db,$req1);
+    $result1 = $del_req1->fetch_assoc(); 
+
+    $login_bdd = $result1['login']; 
+    $password = $result1['password'];
+    $login=$_SESSION['login'];
+    
+    if ($login != $_POST['login']) {
+    $req2="UPDATE `utilisateurs` SET login='{$_POST['login']}' WHERE login='$login'";
+    $del_req2=mysqli_query($this->db,$req2);
+    echo "Votre login a bien été changé par:" . $_POST['login'] . "<br>"; }
+
+    $password=$_SESSION['password'];
+    if ($password != $_POST['password']) {
+    $req3="UPDATE `utilisateurs` SET login='{$_POST['password']}' WHERE password='$password'";
+    $del_req3=mysqli_query($this->db,$req3);
+    echo "Votre mot de passe a bien été changé par:" . $_POST['password'] . "<br>";
+
+}
+}
+}
+
+  
 
    
 
