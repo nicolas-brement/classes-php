@@ -104,17 +104,26 @@ public function update($login, $password) {
 
 }
 }
+
+// Méthode pour récupérer le login
+public function getLogin(){
+    return $_SESSION['user1']->login;
 }
 
-  
+// Méthode pour récupérer l'email
+public function getEmail(){
+    return $_SESSION['user1']->email;
+}
 
-   
+// Méthode pour récupérer prénom
+public function getFirstname(){
+    return $_SESSION['user1']->firstname;
+}
 
-    
-        /*  echo "fail";
-    } else {
-        echo "Connexion établie" , header('Location: profil.php');
-    }
-    }
-} */
+// Méthode pour récupérer le nom
+public function getLastname(){
+    return $_SESSION['user1']->lastname;
+}
+}
+
 
